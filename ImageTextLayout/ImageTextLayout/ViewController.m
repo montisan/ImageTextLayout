@@ -41,8 +41,7 @@
     self.contentTable.dataSource = self;
     self.contentTable.delegate = self;
     [self.view addSubview:self.contentTable];
-    
-    
+
 }
 
 - (void)loadImageTexts
