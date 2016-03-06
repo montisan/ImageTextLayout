@@ -14,7 +14,7 @@
 + (void)setDefaultPropertiesWithTextView:(SETextView *)textView
 {
     [textView setBackgroundColor:[UIColor clearColor]];
-    textView.textAlignment = NSTextAlignmentNatural;
+    textView.textAlignment = NSTextAlignmentJustified;
     textView.lineBreakMode = NSLineBreakByWordWrapping;
     textView.lineSpacing = 10;
     textView.paragraphSpacing = 20;

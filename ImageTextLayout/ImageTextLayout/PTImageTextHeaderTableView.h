@@ -10,10 +10,12 @@
 
 @interface PTImageTextHeaderTableView : UITableView
 
-@property (nonatomic, strong, readonly) UIScrollView *headerScrollView;
+@property (nonatomic, strong, readonly) UIView *headerScaleView;
 
 @property (nonatomic, strong) UIImage *headerImage;
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style headerHeight:(CGFloat)height;
+
+- (UIImage *)generateNavigationBarImage;
 
 @end

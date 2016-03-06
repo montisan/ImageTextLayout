@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *imageTexts;
 @property (nonatomic, strong) NSMutableDictionary *cacheHeights;
+@property (nonatomic, strong) UIImage *navigationImage;
 
 @end
 
@@ -28,19 +29,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.navigationController.navigationBar.hidden = YES;
-    
-    
     [self loadImageTexts];
     _cacheHeights = [NSMutableDictionary dictionary];
     
-    self.contentTable = [[PTImageTextHeaderTableView alloc] initWithFrame:CGRectMake(0, -64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height + 64) style:UITableViewStylePlain headerHeight:300];
+    self.contentTable = [[PTImageTextHeaderTableView alloc] initWithFrame:CGRectMake(0, -64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height + 64) style:UITableViewStylePlain headerHeight:250];
     self.contentTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.contentTable.backgroundColor = [PTImageTextHelper getBackgroundColor];
     self.contentTable.headerImage = [UIImage imageNamed:@"header.png"];
     self.contentTable.dataSource = self;
     self.contentTable.delegate = self;
     [self.view addSubview:self.contentTable];
+    
+    
+    self.navigationImage = [self.contentTable generateNavigationBarImage];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
 }
 
@@ -119,6 +122,18 @@
     [cell updateInfo:info];
     
     return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y >= (250 - 64*2))
+    {
+        [self.navigationController.navigationBar setBackgroundImage:self.navigationImage forBarMetrics:UIBarMetricsDefault];
+    }
+    else
+    {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
